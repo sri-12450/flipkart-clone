@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flipkart - Cart</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="navbar">
+    <h1>My Cart</h1>
+    <div class="nav-actions">
+        <div class="nav-actions">
+            <button class="icon-btn" onclick="goHome()">
+              <img src="https://cdn-icons-png.flaticon.com/128/25/25694.png" alt="Home Icon"> Home
+            </button>
+            <button class="icon-btn" onclick="logout()">
+              <img src="https://cdn-icons-png.flaticon.com/128/660/660350.png" alt="Logout Icon"> Logout
+            </button>
+          </div>
+          
+    </div>
+  </div>
+
+  <div id="cart-container" class="product-grid"></div>
+
+  <div id="total-section">
+    <h2>Total: ₹<span id="total-amount">0</span></h2>
+    <button onclick="placeOrder()">Place Order</button>
+  </div>
+
+  <script>
+    const username = localStorage.getItem("username");
+    if (!username) window.location.href = "index.html";
+
+    let cartItems = [];
+
+    function goHome() {
+      window.location.href = "home.html";
+    }
+
+    function logout() {
+      localStorage.removeItem("username");
+      window.location.href = "index.html";
+    }
+
+    async function loadCart() {
+      const res = await fetch(`http://localhost:3000/api/cart/${username}`);
+      cartItems = await res.json().then(res => res.map(p => ({ ...p, qty: 1 })));
+      renderCart();
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cart-container');
+      const totalDisplay = document.getElementById('total-amount');
+      container.innerHTML = '';
+      let total = 0;
+
+      cartItems.forEach((item, index) => {
+        total += item.price * item.qty;
+        container.innerHTML += `
+          <div class="product-card">
+            <img src="${item.image}" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <p>Price: ₹${item.price}</p>
+            <div class="qty-control">
+              <button onclick="changeQty(${index}, -1)">-</button>
+              <span>${item.qty}</span>
+              <button onclick="changeQty(${index}, 1)">+</button>
+            </div>
+            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+          </div>
+        `;
+      });
+
+      totalDisplay.innerText = total;
+    }
+
+    function changeQty(index, delta) {
+      cartItems[index].qty += delta;
+      if (cartItems[index].qty < 1) cartItems[index].qty = 1;
+      renderCart();
+    }
+
+    function removeItem(index) {
+      cartItems.splice(index, 1);
+      renderCart();
+    }
+
+    function placeOrder() {
+      let total = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+      alert("Order Placed Successfully!\nTotal: ₹" + total);
+    }
+
+    loadCart();
+  </script>
+</body>
+</html>

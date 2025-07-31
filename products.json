@@ -1,0 +1,81 @@
+[
+    {
+      "id": "m1", "name": "iPhone 13", "price": 85000,
+      "image": "https://tiimg.tistatic.com/fp/1/007/653/iphone-13-super-red-color-high-battery-backup-15-4-cm-6-1-inch-full-hd-display-with-water-proof-compatible-453.jpg",
+      "category": "mobile"
+    },
+    {
+      "id": "m2", "name": "S24", "price": 115000,
+      "image": "https://www.designinfo.in/wp-content/uploads/2024/08/Samsung-Galaxy-S24-5G-AI-Smartphone-Amber-Yellow-8GB-256GB-Storage-3.webp",
+      "category": "mobile"
+    },
+    {
+      "id": "m3", "name": "Redmi Note 12", "price": 15000,
+      "image": "https://sathya.in/media/90019/catalog/Onyx%20Black1.jpg",
+      "category": "mobile"
+    },
+    {
+      "id": "m4", "name": "Lava", "price": 28000,
+      "image": "https://cdn1.smartprix.com/rx-ivslvKKhO-w1200-h1200/vslvKKhO.webp",
+      "category": "mobile"
+    },
+    {
+      "id": "m5", "name": "Vivo Y100", "price": 40000
+      ,
+      "image": "https://hamariweb.com/images/MobilePhones/vivo-v50.jpg",
+      "category": "mobile"
+    },
+  
+    {
+      "id": "k1", "name": "Mixer Grinder", "price": 3500,
+      "image": "https://5.imimg.com/data5/SELLER/Default/2022/10/MM/GY/IA/106672715/digismart-mega-mix-1000-watt-mixer-grinder.jpg",
+      "category": "kitchen"
+    },
+    {
+      "id": "k2", "name": "Microwave Oven", "price": 30000,
+      "image": "https://fundamental.in/wp-content/uploads/2021/07/MC2887BFUM-microwave-ovens-Front-view-D-01.png",
+      "category": "kitchen"
+    },
+    {
+      "id": "k3", "name": "Gas Stove", "price": 4500,
+      "image": "https://www.rasoishop.com/cdn/shop/files/8901365402152-1_1.png?v=1713765749",
+      "category": "kitchen"
+    },
+    {
+      "id": "k4", "name": "Frying Pan Set", "price": 1500,
+      "image": "https://www.shutterstock.com/image-photo/cooking-pots-frying-pan-kitchen-600nw-2340497095.jpg",
+      "category": "kitchen"
+    },
+    {
+      "id": "k5", "name": "Rice Cooker", "price": 3000,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGnxxMdDUD4VoYi3nyclXTnYsckbzMZ3b2dA&s",
+      "category": "kitchen"
+    },
+  
+    {
+      "id": "d1", "name": "Lehenga", "price": 1200,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNWrNbVcQnSNvCK-sxjhhd4cUSdsq-0w94Pw&s",
+      "category": "dresses"
+    },
+    {
+      "id": "d2", "name": "Sarees", "price": 3500,
+      "image": "https://www.shutterstock.com/image-photo/closeup-banares-silk-saris-textile-260nw-1335151259.jpg",
+      "category": "dresses"
+    },
+    {
+      "id": "d3", "name": "Casual Kurti", "price": 900,
+      "image": "https://kajols.com/cdn/shop/products/blue-silk-digital-print-casual-kurti-243358-1000x1375.jpg?v=1671239821",
+      "category": "dresses"
+    },
+    {
+      "id": "d4", "name": "Shirts", "price": 3500,
+      "image": "https://i.pinimg.com/736x/37/5e/82/375e82df38d2807d41b84243936b5ef4.jpg",
+      "category": "dresses"
+    },
+    {
+      "id": "d5", "name": "Shervani", "price": 4000,
+      "image": "https://candidmen.in/static/ecommerce/img/products/site_images/blue-threaded-overjacket-sherwani_medium_1.jpg",
+      "category": "dresses"
+    }
+  ]
+  

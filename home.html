@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flipkart - Home</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="navbar">
+    <h1>Flipkart</h1>
+    <div class="nav-actions">
+      <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
+      <button onclick="window.location.href='cart.html'">🛒 Cart</button>
+
+      <button onclick="placeOrder()">Place Order</button>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
+    
+  
+
+  <div class="categories">
+    <button onclick="loadCategory('mobile')">Mobiles</button>
+    <button onclick="loadCategory('kitchen')">Kitchen</button>
+    <button onclick="loadCategory('dresses')">Dresses</button>
+  </div>
+
+  <div id="products" class="product-grid"></div>
+  <div id="payment">
+    <h2>Select Payment Method</h2>
+    <div class="payment-option"><img src="https://cdn-icons-png.flaticon.com/128/3037/3037247.png"/> Credit/Debit Card</div>
+    <div class="payment-option"><img src="https://img.icons8.com/color/48/000000/google-pay-india.png"/> Google Pay</div>
+    <div class="payment-option"><img src="https://img.icons8.com/color/48/000000/paytm.png"/> Paytm</div>
+    <div class="payment-option"><img src="https://cdn-icons-png.flaticon.com/128/5359/5359689.png"/> Cash on Delivery</div>
+    <p style="margin-top: 15px;"><em>This is just a UI demo. No actual payment processed.</em></p>
+  </div>
+  
+  <script src="js/script.js"></script>
+</body>
+</html>
