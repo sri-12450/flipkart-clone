@@ -1,8 +1,9 @@
+const BASE_URL = "https://flipkart-clone-3oq1.onrender.com";
 const username = localStorage.getItem("username");
 if (!username) window.location.href = "index.html";
 
 async function loadCategory(category) {
-  const res = await fetch(`http://localhost:3000/api/products/${category}`);
+  const res = await fetch(`${BASE_URL}/api/products/${category}`);
   const products = await res.json();
   const container = document.getElementById('products');
   container.innerHTML = "";
@@ -20,7 +21,7 @@ async function loadCategory(category) {
 }
 
 async function addToCart(productId) {
-  await fetch('http://localhost:3000/api/cart', {
+  await fetch(`${BASE_URL}/api/cart`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, productId })
@@ -29,13 +30,13 @@ async function addToCart(productId) {
 }
 
 async function viewCart() {
-  const res = await fetch(`http://localhost:3000/api/cart/${username}`);
+  const res = await fetch(`${BASE_URL}/api/cart/${username}`);
   const items = await res.json();
   alert("Cart:\n" + items.map(p => `${p.name} - ₹${p.price}`).join("\n"));
 }
 
 async function placeOrder() {
-  const res = await fetch(`http://localhost:3000/api/order/${username}`);
+  const res = await fetch(`${BASE_URL}/api/order/${username}`);
   const data = await res.json();
   const summary = data.items.map(p => `${p.name} - ₹${p.price}`).join("\n");
   alert(`Order Summary:\n${summary}\n\nTotal: ₹${data.total}`);
