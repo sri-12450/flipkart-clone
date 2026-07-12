@@ -1,96 +1,188 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Flipkart - Cart</title>
-  <link rel="stylesheet" href="css/style.css">
+    <title>Flipkart - Cart</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <div class="navbar">
+
+<div class="navbar">
     <h1>My Cart</h1>
+
     <div class="nav-actions">
-        <div class="nav-actions">
-            <button class="icon-btn" onclick="goHome()">
-              <img src="https://cdn-icons-png.flaticon.com/128/25/25694.png" alt="Home Icon"> Home
-            </button>
-            <button class="icon-btn" onclick="logout()">
-              <img src="https://cdn-icons-png.flaticon.com/128/660/660350.png" alt="Logout Icon"> Logout
-            </button>
-          </div>
-          
+
+        <button class="icon-btn" onclick="goHome()">
+            <img src="https://cdn-icons-png.flaticon.com/128/25/25694.png">
+            Home
+        </button>
+
+        <button class="icon-btn" onclick="logout()">
+            <img src="https://cdn-icons-png.flaticon.com/128/660/660350.png">
+            Logout
+        </button>
+
     </div>
-  </div>
+</div>
 
-  <div id="cart-container" class="product-grid"></div>
+<div id="cart-container" class="product-grid"></div>
 
-  <div id="total-section">
-    <h2>Total: ₹<span id="total-amount">0</span></h2>
+<div id="total-section">
+    <h2>Total : ₹<span id="total-amount">0</span></h2>
     <button onclick="placeOrder()">Place Order</button>
-  </div>
+</div>
 
-  <script>
-    const username = localStorage.getItem("username");
-    if (!username) window.location.href = "index.html";
+<script>
 
-    let cartItems = [];
+const BASE_URL = "https://flipkart-clone-3oq1.onrender.com";
 
-    function goHome() {
-      window.location.href = "home.html";
+const username = localStorage.getItem("username");
+
+if (!username) {
+    window.location.href = "index.html";
+}
+
+let cartItems = [];
+
+function goHome() {
+    window.location.href = "home.html";
+}
+
+function logout() {
+    localStorage.removeItem("username");
+    window.location.href = "index.html";
+}
+
+async function loadCart() {
+
+    try {
+
+        const res = await fetch(`${BASE_URL}/api/cart/${username}`);
+
+        if (!res.ok) {
+            throw new Error("Unable to load cart");
+        }
+
+        const items = await res.json();
+
+        cartItems = items.map(item => ({
+            ...item,
+            qty: 1
+        }));
+
+        renderCart();
+
+    } catch (err) {
+
+        console.error(err);
+        alert("Failed to load cart.");
+
     }
 
-    function logout() {
-      localStorage.removeItem("username");
-      window.location.href = "index.html";
+}
+
+function renderCart() {
+
+    const container = document.getElementById("cart-container");
+    const totalAmount = document.getElementById("total-amount");
+
+    container.innerHTML = "";
+
+    let total = 0;
+
+    if (cartItems.length === 0) {
+
+        container.innerHTML = "<h2>Your Cart is Empty</h2>";
+        totalAmount.innerText = "0";
+        return;
+
     }
 
-    async function loadCart() {
-      const res = await fetch(`http://localhost:3000/api/cart/${username}`);
-      cartItems = await res.json().then(res => res.map(p => ({ ...p, qty: 1 })));
-      renderCart();
-    }
+    cartItems.forEach((item,index)=>{
 
-    function renderCart() {
-      const container = document.getElementById('cart-container');
-      const totalDisplay = document.getElementById('total-amount');
-      container.innerHTML = '';
-      let total = 0;
-
-      cartItems.forEach((item, index) => {
         total += item.price * item.qty;
+
         container.innerHTML += `
-          <div class="product-card">
+
+        <div class="product-card">
+
             <img src="${item.image}" alt="${item.name}">
+
             <h3>${item.name}</h3>
-            <p>Price: ₹${item.price}</p>
+
+            <p>Price : ₹${item.price}</p>
+
             <div class="qty-control">
-              <button onclick="changeQty(${index}, -1)">-</button>
-              <span>${item.qty}</span>
-              <button onclick="changeQty(${index}, 1)">+</button>
+
+                <button onclick="changeQty(${index},-1)">-</button>
+
+                <span>${item.qty}</span>
+
+                <button onclick="changeQty(${index},1)">+</button>
+
             </div>
-            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
-          </div>
+
+            <button class="remove-btn"
+                    onclick="removeItem(${index})">
+                    Remove
+            </button>
+
+        </div>
+
         `;
-      });
 
-      totalDisplay.innerText = total;
+    });
+
+    totalAmount.innerText = total;
+
+}
+
+function changeQty(index,change){
+
+    cartItems[index].qty += change;
+
+    if(cartItems[index].qty < 1){
+        cartItems[index].qty = 1;
     }
 
-    function changeQty(index, delta) {
-      cartItems[index].qty += delta;
-      if (cartItems[index].qty < 1) cartItems[index].qty = 1;
-      renderCart();
+    renderCart();
+
+}
+
+function removeItem(index){
+
+    cartItems.splice(index,1);
+
+    renderCart();
+
+}
+
+function placeOrder(){
+
+    if(cartItems.length===0){
+        alert("Your cart is empty.");
+        return;
     }
 
-    function removeItem(index) {
-      cartItems.splice(index, 1);
-      renderCart();
-    }
+    let total = cartItems.reduce((sum,item)=>sum+item.price*item.qty,0);
 
-    function placeOrder() {
-      let total = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
-      alert("Order Placed Successfully!\nTotal: ₹" + total);
-    }
+    alert(
+`Order Placed Successfully!
 
-    loadCart();
-  </script>
+Total : ₹${total}
+
+Thank you for shopping with Flipkart!`
+    );
+
+    cartItems=[];
+
+    renderCart();
+
+}
+
+loadCart();
+
+</script>
+
 </body>
 </html>
