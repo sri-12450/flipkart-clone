@@ -16,25 +16,27 @@
   </div>
 
   <script>
-    document.getElementById('registerForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
+document.getElementById('registerForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-      fetch('https://flipkart-clone-3oq1.onrender.com/api/register', {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    const res = await fetch('https://flipkart-clone-3oq1.onrender.com/api/register', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ username, password })
-      });
+    });
 
-      const data = await res.json();
-      if (res.ok) {
+    const data = await res.json();
+
+    if (res.ok) {
         alert(data.msg);
         window.location.href = "index.html";
-      } else {
+    } else {
         alert(data.msg);
-      }
-    });
-  </script>
-</body>
-</html>
+    }
+});
+</script>
